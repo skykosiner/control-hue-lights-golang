@@ -224,7 +224,7 @@
     "8": {
         "state": {
             "on": true,
-            "bri": 254,
+            "bri": 246,
             "alert": "lselect",
             "mode": "homeautomation",
             "reachable": false
@@ -266,7 +266,7 @@
     "9": {
         "state": {
             "on": true,
-            "bri": 254,
+            "bri": 246,
             "alert": "lselect",
             "mode": "homeautomation",
             "reachable": false
@@ -308,7 +308,7 @@
     "10": {
         "state": {
             "on": true,
-            "bri": 254,
+            "bri": 246,
             "alert": "lselect",
             "mode": "homeautomation",
             "reachable": false
@@ -350,7 +350,7 @@
     "11": {
         "state": {
             "on": true,
-            "bri": 254,
+            "bri": 246,
             "alert": "lselect",
             "mode": "homeautomation",
             "reachable": false
@@ -532,7 +532,7 @@
     "17": {
         "state": {
             "on": true,
-            "bri": 254,
+            "bri": 246,
             "alert": "lselect",
             "mode": "homeautomation",
             "reachable": false
@@ -574,7 +574,7 @@
     "18": {
         "state": {
             "on": true,
-            "bri": 254,
+            "bri": 246,
             "alert": "lselect",
             "mode": "homeautomation",
             "reachable": false
@@ -685,7 +685,7 @@
     },
     "20": {
         "state": {
-            "on": true,
+            "on": false,
             "bri": 254,
             "ct": 153,
             "alert": "lselect",
@@ -733,7 +733,7 @@
     },
     "21": {
         "state": {
-            "on": true,
+            "on": false,
             "bri": 254,
             "ct": 153,
             "alert": "lselect",
@@ -781,7 +781,7 @@
     },
     "22": {
         "state": {
-            "on": true,
+            "on": false,
             "bri": 254,
             "ct": 153,
             "alert": "lselect",
@@ -829,7 +829,7 @@
     },
     "23": {
         "state": {
-            "on": true,
+            "on": false,
             "bri": 254,
             "ct": 153,
             "alert": "lselect",
@@ -877,7 +877,7 @@
     },
     "24": {
         "state": {
-            "on": true,
+            "on": false,
             "bri": 254,
             "ct": 153,
             "alert": "lselect",
@@ -925,7 +925,7 @@
     },
     "25": {
         "state": {
-            "on": true,
+            "on": false,
             "bri": 254,
             "ct": 153,
             "alert": "lselect",

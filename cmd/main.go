@@ -1,15 +1,22 @@
 package main
 
 import (
-	"log"
+	"os"
 
-	"github.com/joho/godotenv"
+	"github.com/skykosiner/control-lights/pkg/lights"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	url := "http://10.0.0.2/api/vGeourmApBqx37QJaJUQ4AxboqUjli1Fj3LtTQdY/"
+	args := os.Args[1:]
 
+	switch args[0] {
+	case "ceiling":
+		lights.ToggleLightsCeiling(url)
+	case "others":
+		lights.ToggleOthers(url)
+	case "all":
+		lights.ToggleLightsCeiling(url)
+		lights.ToggleOthers(url)
+	}
 }
