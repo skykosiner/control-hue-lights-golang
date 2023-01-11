@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/skykosiner/control-lights/pkg/settings"
 )
 
 type hueAPI struct {
@@ -64,16 +66,8 @@ type ApiResponse struct {
 	ProductId       string       `json:"productid"`
 }
 
-func opisateState(state bool) hueAPI {
-	if state {
-		return hueAPI{On: false}
-	}
-
-	return hueAPI{On: true}
-}
-
 func toggleLight(light int, url string, state bool) {
-	jsonReq, err := json.Marshal(opisateState(state))
+	jsonReq, err := json.Marshal(hueAPI{On: !state})
 
 	if err != nil {
 		log.Fatal("There was an error toggling the light", err)
@@ -132,33 +126,17 @@ func GetCurrentState(url string, light int) State {
 }
 
 func ToggleLightsCeiling(url string) {
-	lights := map[string]int{
-		"ceilingLightOne":   20,
-		"ceilingLightTwo":   21,
-		"ceilingLightThree": 22,
-		"ceilingLightFour":  23,
-		"ceilingLightFive":  24,
-		"ceilingLightSix":   25,
-	}
+	lights := settings.ReadConfig().Lights.Bedroom.CeilingLights
 
-	for k, v := range lights {
-		fmt.Println("changeing light", k)
+	for _, v := range lights {
 		toggleLight(v, url, GetCurrentState(url, v).On)
 	}
 }
 
 func ToggleOthers(url string) {
-	lights := map[string]int{
-		"deskLamp": 16,
-		// "deskPlug": 6,
-		"headBoard": 1,
-		"underSide": 7,
-		"desk":      14,
-		"lamp":      5,
-	}
+	lights := settings.ReadConfig().Lights.Bedroom.Others
 
-	for k, v := range lights {
-		fmt.Println("changeing light", k)
+	for _, v := range lights {
 		toggleLight(v, url, GetCurrentState(url, v).On)
 	}
 }

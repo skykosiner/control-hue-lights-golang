@@ -1,22 +1,29 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/skykosiner/control-lights/pkg/lights"
+	"github.com/skykosiner/control-lights/pkg/settings"
+	"github.com/skykosiner/control-lights/pkg/status"
 )
 
 func main() {
-	url := "http://10.0.0.2/api/vGeourmApBqx37QJaJUQ4AxboqUjli1Fj3LtTQdY/"
+	config := settings.ReadConfig()
 	args := os.Args[1:]
 
 	switch args[0] {
 	case "ceiling":
-		lights.ToggleLightsCeiling(url)
+		lights.ToggleLightsCeiling(config.Url)
 	case "others":
-		lights.ToggleOthers(url)
+		lights.ToggleOthers(config.Url)
 	case "all":
-		lights.ToggleLightsCeiling(url)
-		lights.ToggleOthers(url)
+		lights.ToggleLightsCeiling(config.Url)
+		lights.ToggleOthers(config.Url)
+	case "setupConfig":
+		settings.SetupConfig()
+	case "status":
+		fmt.Println(status.GetStatus())
 	}
 }
