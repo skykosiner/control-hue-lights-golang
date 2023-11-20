@@ -46,10 +46,17 @@ func main() {
 		} else {
 			fmt.Println("Not connected to correct wifi")
 		}
+	case "ct":
+		number, err := strconv.Atoi(args[1])
+
+		if err != nil {
+			log.Fatal("Error getting number percent", err)
+		}
+
+		lights.SetCt(config.Url, number)
 	case "reputationEra":
         lights.ReputationEra(config.Url)
 	default:
-
 		number, err := strconv.Atoi(args[0])
 
 		if err != nil {
