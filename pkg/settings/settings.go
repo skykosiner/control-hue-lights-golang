@@ -20,7 +20,7 @@ type Config struct {
 
 func SetupConfig() {
 	// Check if the config existis
-	path := fmt.Sprintf("%s/.local/lights/config.json", os.Getenv("HOME"))
+	path := fmt.Sprintf("%s/.config/lights/config.json", os.Getenv("HOME"))
 
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		// Create the file with the defualts from the config.json in the base dir
@@ -32,7 +32,7 @@ func SetupConfig() {
 			log.Fatal("Error reading config.json file for config setup", err)
 		}
 
-		err = os.MkdirAll(fmt.Sprintf("%s/.local/lights", os.Getenv("HOME")), 0700)
+		err = os.MkdirAll(fmt.Sprintf("%s/.config/lights", os.Getenv("HOME")), 0700)
 
 		if err != nil {
 			log.Fatal("Error creating new dir", err)
@@ -56,7 +56,7 @@ func SetupConfig() {
 func ReadConfig() Config {
 	var config Config
 
-	bytesRead, err := ioutil.ReadFile(fmt.Sprintf("%s/.local/lights/config.json", os.Getenv("HOME")))
+	bytesRead, err := ioutil.ReadFile(fmt.Sprintf("%s/.config/lights/config.json", os.Getenv("HOME")))
 
 	if err != nil {
 		log.Fatal("Error reading config.json file", err)

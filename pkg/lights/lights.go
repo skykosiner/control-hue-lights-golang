@@ -15,6 +15,16 @@ type hueAPI struct {
 	On bool `json:"on"`
 }
 
+type hueAPiColor struct {
+	On  bool `json:"on"`
+	Hue int  `json:"hue"`
+}
+
+type hueAPIBrightness struct {
+	On bool `json:"on"`
+	Brightness int `json:"bri"`
+}
+
 type State struct {
 	On         bool   `json:"on"`
 	Brightness int    `json:"bri"`
@@ -66,8 +76,73 @@ type ApiResponse struct {
 	ProductId       string       `json:"productid"`
 }
 
+func setBrightness(light int, url string, brightness int) {
+	jsonReq, err := json.Marshal(hueAPIBrightness{On: true, Brightness: brightness})
+
+	if err != nil {
+		log.Fatal("Error setting brightness of lights", err)
+	}
+
+	url = fmt.Sprintf("%slights/%d/state", url, light)
+	req, err := http.NewRequest(http.MethodPut, url, bytes.NewBuffer(jsonReq))
+	if err != nil {
+		log.Fatal("Error setting brightness of lights", err)
+	}
+
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		log.Fatal(err)
+		log.Fatal(string(body))
+	}
+
+	defer resp.Body.Close()
+}
+
 func toggleLight(light int, url string, state bool) {
 	jsonReq, err := json.Marshal(hueAPI{On: !state})
+
+	if err != nil {
+		log.Fatal("There was an error toggling the light", err)
+	}
+
+	url = fmt.Sprintf("%slights/%d/state", url, light)
+	req, err := http.NewRequest(http.MethodPut, url, bytes.NewBuffer(jsonReq))
+
+	if err != nil {
+		log.Fatal("There was an issue turnning off the lights", err)
+	}
+
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		log.Fatal(err)
+		log.Fatal(string(body))
+	}
+
+	defer resp.Body.Close()
+}
+
+func setColor(light int, url string) {
+	jsonReq, err := json.Marshal(hueAPiColor{On: true, Hue: 0})
 
 	if err != nil {
 		log.Fatal("There was an error toggling the light", err)
@@ -138,5 +213,22 @@ func ToggleOthers(url string) {
 
 	for _, v := range lights {
 		toggleLight(v, url, GetCurrentState(url, v).On)
+	}
+}
+
+func ReputationEra(url string) {
+	lights := settings.ReadConfig().Lights.Bedroom.Others
+
+	for _, v := range lights {
+		// Set the lights to red
+		setColor(v, url)
+	}
+}
+
+func SetBright(url string, brightness int) {
+	ceilingLights := settings.ReadConfig().Lights.Bedroom.CeilingLights
+
+	for _, light := range ceilingLights {
+		setBrightness(light, url, brightness)
 	}
 }
