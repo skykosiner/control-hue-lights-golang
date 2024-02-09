@@ -25,6 +25,8 @@ func main() {
 	switch args[0] {
 	case "ceiling":
 		lights.ToggleLightsCeiling(config.Url)
+	case "studio":
+		lights.ToggleStudioLights(config.Url)
 	case "others":
 		lights.ToggleOthers(config.Url)
 	case "all":

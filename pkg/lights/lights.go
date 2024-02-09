@@ -21,13 +21,13 @@ type hueAPiColor struct {
 }
 
 type hueAPIBrightness struct {
-	On bool `json:"on"`
-	Brightness int `json:"bri"`
+	On         bool `json:"on"`
+	Brightness int  `json:"bri"`
 }
 
 type hueAPICt struct {
 	On bool `json:"on"`
-	Ct int `json:"ct"`
+	Ct int  `json:"ct"`
 }
 
 type State struct {
@@ -178,6 +178,14 @@ func ToggleLightsCeiling(url string) {
 
 	for _, v := range lights {
 		toggleLight(v, url, GetCurrentState(url, v).On)
+	}
+}
+
+func ToggleStudioLights(url string) {
+	lights := settings.ReadConfig().Lights.Bedroom.Studio
+
+	for _, v := range lights {
+		toggleLight(v, url, GetCurrentState(url, v), On)
 	}
 }
 

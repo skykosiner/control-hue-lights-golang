@@ -14,6 +14,7 @@ type Config struct {
 		Bedroom struct {
 			CeilingLights []int `json:"ceilingLights"`
 			Others        []int `json:"others"`
+			Studio []int `json:"studio"`
 		} `json:"bedroom"`
 	} `json:"lights"`
 }
