@@ -185,7 +185,7 @@ func ToggleStudioLights(url string) {
 	lights := settings.ReadConfig().Lights.Bedroom.Studio
 
 	for _, v := range lights {
-		toggleLight(v, url, GetCurrentState(url, v), On)
+		toggleLight(v, url, GetCurrentState(url, v).On)
 	}
 }
 
